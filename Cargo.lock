@@ -227,7 +227,7 @@ dependencies = [
 
 [[package]]
 name = "swayosd_main_monitor"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "hyprshell-hyprland",
 ]
