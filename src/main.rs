@@ -19,19 +19,13 @@ fn get_focused_monitor() -> Option<String> {
 }
 
 fn main() {
-    let args: Vec<_> = std::env::args().skip(1).collect();
+    let mut args: Vec<_> = std::env::args().skip(1).collect();
     let monitor = get_focused_monitor();
 
-    let swayosd_args = match monitor {
-        Some(monitor) => {
-            let mut out = Vec::with_capacity(args.len() + 2);
-            out.push("--monitor".to_string());
-            out.push(monitor);
-            out.extend(args);
-            out
-        }
-        _ => args,
-    };
+    if let Some(m) = monitor {
+        args.push("--monitor".to_string());
+        args.push(m);
+    }
 
-    let _ = Command::new("swayosd-client").args(swayosd_args).exec();
+    let _ = Command::new("swayosd-client").args(args).exec();
 }
